@@ -86,11 +86,9 @@ three-chip video implementation used in earlier players. This chip controls up
 to XXX of memory and processes image control and data information for both
 planes, performing and run-length and mosaic decoding followed by decoding CLUT,
 DYUV and RGB555 formats, performing region and transparency processing and then
-combining the resulting RGB data of both planes, a cursor plane and
-I<sup>2</sup>S external video input into digital RGB888 outputs which are then
+combining the resulting RGB data of both planes and a cursor plane
+into digital RGB888 outputs which are then
 fed to a video encoder chip.
-
-The external video input is typically connected to an MPEG video decoder chip.
 
 **Data sheet:** http://www.icdia.co.uk/docs/mcd212rev0.zip \
 **CD-i boards:** All Mono boards
