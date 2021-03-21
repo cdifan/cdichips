@@ -123,7 +123,7 @@ It contains XXX bytes of read-only factory-programmed program ROM
 and XXX bytes of RAM.
 
 **Data sheet:** TBA \
-**Additional information**: TBA \
+**Additional information:** [mc6805servo.md](mc6805servo.md) in this repository \
 **CD-i boards:** Maxi-MMC, Mini-MMC, Mono-I
 
 #### SLAVE - Motorola MC68HC05 8-bit Microcontroller
@@ -134,13 +134,13 @@ It contains XXX bytes of read-only factory-programmed program ROM
 and XXX bytes of RAM.
 
 **Data sheet:** TBA \
-**Additional information**: TBA \
+**Additional information:** [mc6805slave.md](mc6805slave.md) in this repository \
 **CD-i boards:** Maxi-MMC, Mini-MMC, Mono-I, Mono-II
 
 #### IKAT - Motorola MC68HC05 8-bit microcontroller
 
 **Data sheet:** TBA \
-**Additional information**: TBA \
+**Additional information:** [mc6805ikat.md](mc6805ikat.md) in this repository \
 **CD-i boards:** Mono-III and up
 
 ## NVRAM chips
