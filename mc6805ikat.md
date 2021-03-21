@@ -276,11 +276,11 @@ Reports the boot mode as determined by service plug detection.
 #### Video standard
 Port | Hex | Binary | Name
 - | - | - | -
-PC | A5 F6 0m ?? | 1010 0101 1111 0110 0000 *mmmm* ???? ???? | `Video standard`
+PC | A5 F6 0s ?? | 1010 0101 1111 0110 0000 *ssss* ???? ???? | `Video standard`
 
 Reports the current video standard as taken from IKAT input pin PC7.
 
-*m* | Standard
+*s* | Standard
 - | -
 1 | NTSC / 60 Hz
 2 | PAL / 50 Hz
