@@ -17,7 +17,7 @@ The files in this repository contain additional information about the chips that
 was determined by reverse engineering their drivers as contained in the CD-i
 system ROMs and tested by emulating them in the [CD-i Emulator] program.
 
-[CD-i Players]: http://www.cdiemu/players/
+[CD-i Players]: http://www.cdiemu.org/players/
 [CD-i Emulator]: http://www.cdiemu.org/cdiemu/
 [ICDIA]: http://www.icdia.co.uk/
 [CD-i Technical Documentation / System]: http://www.icdia.co.uk/docs/
@@ -31,7 +31,7 @@ system ROMs and tested by emulating them in the [CD-i Emulator] program.
 
 #### Philips 68070 Central Processing Unit
 
-**Data sheet:** http://www.icdia.co.uk/docs/scc66470.pdf \
+**Data sheet:** http://www.icdia.co.uk/docs/scc68070.zip \
 **CD-i boards:** JNMS, Maxi-MMC, Mini-MMC, all Mono boards
 
 #### Toshiba TMP68305 Central Processing Unit
@@ -92,7 +92,7 @@ fed to a video encoder chip.
 
 The external video input is typically connected to an MPEG video decoder chip.
 
-**Data sheet:** http://www.icdia.co.uk/docs/mcd212rev0.pdf \
+**Data sheet:** http://www.icdia.co.uk/docs/mcd212rev0.zip \
 **CD-i boards:** All Mono boards
 
 ## CD/Audio chips
@@ -105,7 +105,7 @@ The external video input is typically connected to an MPEG video decoder chip.
 
 #### DSP - Motorola DSP56001 Digital Signal Processor
 
-**Data sheet:** http://www.icdia.co.uk/docs/dsp560001.zip \
+**Data sheet:** http://www.icdia.co.uk/docs/dsp56001.zip \
 **Additional information**: TBA \
 **CD-i boards:** Mono-II
 
