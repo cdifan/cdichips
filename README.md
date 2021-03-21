@@ -111,7 +111,7 @@ fed to a video encoder chip.
 
 **Data sheet:** Not available \
 **Technical summary:** http://www.icdia.co.uk/docs/mcd221tsrev0.zip \
-**Additional information**: TBA \
+**Additional information:** [mcd221ciap.md](mcd221ciap.md) in this repository \
 **CD-i boards:** Mono-III and up
 
 #### SERVO - Motorola MC68HC05  8-bit Microcontroller
