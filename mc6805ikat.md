@@ -196,6 +196,13 @@ Resets the main 68000 CPU by asserting its RESET input.
 
 **Response:** None, main CPU is reset
 
+#### Get boot mode
+Port | Hex | Binary | Name
+- | - | - | -
+PC | F4 | 1111 0100 | `Get boot mode`
+
+**Response:** `Boot mode` on Port C
+
 #### Get video standard
 Port | Hex | Binary | Name
 - | - | - | -
@@ -253,6 +260,18 @@ position delta values does not fit in an 8-bit signed value (i.e. is not in the 
 TBA: more port B responses
 
 ### Port C
+
+#### Boot mode
+Port | Hex | Binary | Name
+- | - | - | -
+PC | A5 F4 0m | 1010 0101 1111 0100 0000 *mmmm* | `Boot mode`
+
+Reports the boot mode as determined by service plug detection.
+
+*m* | Mode
+- | -
+0 | Boot player shell
+1 | Boot service shell
 
 #### Video standard
 Port | Hex | Binary | Name
