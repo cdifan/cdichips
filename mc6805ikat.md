@@ -196,6 +196,13 @@ Resets the main 68000 CPU by asserting its RESET input.
 
 **Response:** None, main CPU is reset
 
+#### Get video standard
+Port | Hex | Binary | Name
+- | - | - | -
+PC | F6 | 1111 0110 | `Get video standard`
+
+**Response:** `Video standard` on Port C
+
 TBA: more port C commands
 
 ### Port D
@@ -247,7 +254,21 @@ TBA: more port B responses
 
 ### Port C
 
-TBA: port C responses
+#### Video standard
+Port | Hex | Binary | Name
+- | - | - | -
+PC | A5 F6 0m ?? | 1010 0101 1111 0110 0000 *mmmm* ???? ???? | `Video standard`
+
+Reports the current video standard as taken from IKAT input pin PC7.
+
+*m* | Standard
+- | -
+1 | NTSC / 60 Hz
+2 | PAL / 50 Hz
+
+[CD-i Emulator] always returns FF for the ?? byte.
+
+TBA: more port C responses
 
 ### Port D
 
