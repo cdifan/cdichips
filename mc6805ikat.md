@@ -30,7 +30,7 @@ bus and does not have an A0 input pin, so all of the memory addresses below are
 odd and the registers must be accessed with byte read or write cycles.
 
 Address | Register | Description
-- | - | -
+--- | --- | ---
 01 | PAWR | Port A write register
 03 | PBWR | Port B write register
 05 | PCWR | Port C write register
@@ -189,7 +189,7 @@ TBA: port B commands
 
 #### Reset main cpu
 Port | Hex | Binary | Name
-- | - | - | -
+--- | --- | --- | ---
 PC | 88 | 1000 1000 | `Reset main cpu`
 
 Resets the main 68000 CPU by asserting its RESET input.
@@ -198,14 +198,14 @@ Resets the main 68000 CPU by asserting its RESET input.
 
 #### Get boot mode
 Port | Hex | Binary | Name
-- | - | - | -
+--- | --- | --- | ---
 PC | F4 | 1111 0100 | `Get boot mode`
 
 **Response:** `Boot mode` on Port C
 
 #### Get video standard
 Port | Hex | Binary | Name
-- | - | - | -
+--- | --- | --- | ---
 PC | F6 | 1111 0110 | `Get video standard`
 
 **Response:** `Video standard` on Port C
@@ -226,7 +226,7 @@ TBA: port A responses
 
 #### Absolute pointer state
 Port | Hex | Binary | Name
-- | - | - | -
+--- | --- | --- | ---
 PB | 4x xx xx xx ... 7x xx xx xx | 01*ab cccc* 000*d eeee* 00*ff ffff* 10*gg gggg* | `Absolute pointer state`
 
 Reports the current pointer state in absolute coordinates: \
@@ -243,7 +243,7 @@ position delta values fit in an 8-bit signed value (i.e. are in the -128 ...
 
 #### Relative pointer state
 Port | Hex | Binary | Name
-- | - | - | -
+--- | --- | --- | ---
 B | 4x xx xx xx ... 7x xx xx xx | 01*ab ccdd* 00*ee eeee* 00*ff ffff* 0000 0000 | `Relative pointer state`
 
 Reports the current pointer state in relative coordinates: \
@@ -263,25 +263,25 @@ TBA: more port B responses
 
 #### Boot mode
 Port | Hex | Binary | Name
-- | - | - | -
+--- | --- | --- | ---
 PC | A5 F4 0m | 1010 0101 1111 0100 0000 *mmmm* | `Boot mode`
 
 Reports the boot mode as determined by service plug detection.
 
 *m* | Mode
-- | -
+--- | ---
 0 | Boot player shell
 1 | Boot service shell
 
 #### Video standard
 Port | Hex | Binary | Name
-- | - | - | -
+--- | --- | --- | ---
 PC | A5 F6 0s ?? | 1010 0101 1111 0110 0000 *ssss* ???? ???? | `Video standard`
 
 Reports the current video standard as taken from IKAT input pin PC7.
 
 *s* | Standard
-- | -
+--- | ---
 1 | NTSC / 60 Hz
 2 | PAL / 50 Hz
 

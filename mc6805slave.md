@@ -32,7 +32,7 @@ bus and does not have an A0 input pin, so all of the memory addresses below are
 odd and the registers must be accessed with byte read or write cycles.
 
 Address | Register | Description
-- | - | -
+--- | --- | ---
 1 | PA | Port A
 3 | PB | Port B
 5 | PC | Port C
@@ -58,7 +58,7 @@ bytes are available on any port.
 
 #### Enable pointer input
 Port | Hex | Binary | Name
-- | - | - | -
+--- | --- | --- | ---
 A | 83 | 1000 0011 | `Enable pointer input`
 
 Enables `Pointer state` response messages on port A.
@@ -67,7 +67,7 @@ Enables `Pointer state` response messages on port A.
 
 #### Disable pointer input
 Port | Hex | Binary | Name
-- | - | - | -
+--- | --- | --- | ---
 A | 84 | 1000 0100 | `Disable pointer input`
 
 Disables `Pointer state` response messages on port A.
@@ -76,7 +76,7 @@ Disables `Pointer state` response messages on port A.
 
 #### Set pointer position
 Port | Hex | Binary | Name
-- | - | - | -
+--- | --- | --- | ---
 A | Cx xx xx ... Fx xx xx | 11*aa aaaa* 0*bbb cccc* 0*ddd dddd* | `Set pointer position`
 
 Sets the current pointer position to x = *bbbddddddd*, y = *aaaaaacccc*.
@@ -93,7 +93,7 @@ TBA: port B commands
 
 #### Reset main cpu
 Port | Hex | Binary | Name
-- | - | - | -
+--- | --- | --- | ---
 A | 8A | 1000 1010 | `Reset main cpu`
 
 Resets the main 68000 CPU by asserting its RESET input.
@@ -112,7 +112,7 @@ TBA: port C commands
 
 #### Pointer state
 Port | Hex | Binary | Name
-- | - | - | -
+--- | --- | --- | ---
 A | 0x xx xx xx ... 3x xx xx xx | 00*ab cddd* 0*eee eeee* 0000 0*fff* 0*ggg gggg* | `Pointer state`
 
 Reports the current pointer state: \
