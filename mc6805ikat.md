@@ -240,6 +240,8 @@ Reports the current pointer state in absolute coordinates: \
 *ccccffffff* = x position \
 *eeeegggggg* = y position
 
+The x and y values use the full 0-1023 range to represent 0,0 - 767,559 (high-res PAL).
+
 [CD-i Emulator] uses this response message only when necessary;
 the `Relative pointer state` response is used whenever both x and y
 position delta values fit in an 8-bit signed value (i.e. are in the -128 ...
@@ -255,6 +257,8 @@ Reports the current pointer state in relative coordinates: \
 *b* = set when button 1 pressed \
 *cceeeeee* = x position delta (8-bit signed value)\
 *ffgggggg* = y position delta (8-bit signed value)
+
+The delta x and y values are based on the full 0-1023 range to represent 0,0 - 767,559 (high-res PAL).
 
 [CD-i Emulator] uses this response message whenever possible;
 the `Absolute pointer state` response is only used when one of the x and y

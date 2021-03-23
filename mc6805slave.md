@@ -81,6 +81,8 @@ A | Cx xx xx ... Fx xx xx | 11*aa aaaa* 0*bbb cccc* 0*ddd dddd* | `Set pointer p
 
 Sets the current pointer position to x = *bbbddddddd*, y = *aaaaaacccc*.
 
+The x and y values correspond to high-res screen positions.
+
 **Response:** None
 
 TBA: more port A commands
@@ -121,6 +123,8 @@ Reports the current pointer state: \
 *c* = set when pointer active \
 *dddeeeeeee* = x position \
 *fffggggggg* = y position
+
+The x and y values correspond to high-res screen positions.
 
 TBA: more port A responses
  
