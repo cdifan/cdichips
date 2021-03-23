@@ -61,6 +61,10 @@ command than first byte 80 on port D.
 The IKAT will assert its level-based interrupt output whenever the interrupt
 bits for any port are set in bith the ISR and ICR registers.
 
+Some IKAT ports are read by interrupt handlers from multiple CD-i drivers; if this is the
+case response messages may start with one or more A5 bytes which will select the correct
+interrupt handlers.
+
 ## Register description
 
 #### P*x*WR - Port *x* write register (*x* = A/B/C/D)
