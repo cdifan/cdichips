@@ -218,7 +218,49 @@ TBA: more port C commands
 
 ### Port D
 
-TBA: port D commands
+#### Get disc status
+Port | Hex | Binary | Name
+--- | --- | --- | ---
+PD | B0 | 1011 0000 | `Get disc status`
+
+**Response:** `Disc status` on Port D
+
+#### Get disc base
+Port | Hex | Binary | Name
+--- | --- | --- | ---
+PD | B1 | 1011 0001 | `Get disc base`
+
+**Response:** `Disc base` on Port D
+
+#### Get disc status
+Port | Hex | Binary | Name
+--- | --- | --- | ---
+PD | B2 | 1011 0010 | `Get disc select`
+
+**Response:** `Disc select` on Port D
+
+#### Start TOC
+Port | Hex | Binary | Name
+--- | --- | --- | ---
+PD | C0 | 1100 0000 | `Start TOC`
+
+Starts TOC read from the lead-in area of the disc.
+
+#### Start CDDA
+Port | Hex | Binary | Name
+--- | --- | --- | ---
+PD | E0 mm ss ff | 1110 0000 *mmmm mmmm* *ssss ssss* *ffff ffff* | `Start CDDA`
+
+Starts CD-DA playback at absolute CD address *mm:ss:ff*.
+
+#### Start READ
+Port | Hex | Binary | Name
+--- | --- | --- | ---
+PD | E1 mm ss ff | 1110 0001 *mmmm mmmm* *ssss ssss* *ffff ffff* | `Start CDDA`
+
+Starts sector reading at absolute CD address *mm:ss:ff*.
+
+TBA: more port D commands
 
 ## Responses
 
@@ -299,6 +341,35 @@ TBA: more port C responses
 
 ### Port D
 
-TBA: port D responses
+#### Disc status
+Port | Hex | Binary | Name
+--- | --- | --- | ---
+PD | B0 ss ss | 1011 0000 *ssss ssss* *ssss ssss* | `Disc status`
+
+Reports the current disc status like door {open,closing,closed,opening}, speed,
+focus and wether or not the disc is multi-session (orange book).
+
+[CD-i Emulator] always returns hexadecimal 0210.
+
+#### Disc base
+Port | Hex | Binary | Name
+--- | --- | --- | ---
+PD | B1 mm ss ff | 1011 0001 *mmmm mmmm* *ssss ssss* *ffff ffff* | `Disc base`
+
+Reports the current absolute disc base address *mm:ss:ff* which is always
+00:02:00 except for multisession discs.
+
+[CD-i Emulator] always returns 00:02:00.
+
+#### Disc select
+Port | Hex | Binary | Name
+--- | --- | --- | ---
+PD | B2 ss ss ss | 1011 0010 *ssss ssss* *ssss ssss* *ssss ssss* | `Disc status`
+
+Reports the current disc select value.
+
+[CD-i Emulator] always returns hexadecimal 200010.
+
+TBA: more port D responses
 
 [CD-i Emulator]: http://www.cdiemu.org/cdiemu/
