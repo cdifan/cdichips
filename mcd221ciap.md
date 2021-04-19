@@ -36,7 +36,7 @@ The 68000 CPU supports reading bytes, words and long words using such cycles but
 all writing must be done with aligned words or long word operations.
 
 Address | Description
-- | -
+--- | ---
 0000 - 08FE | ADPCM buffer 0
 0900 - 11FE | ADPCM buffer 1
 1200 - 1B22 | Mainchannel DATA buffer 0
@@ -58,7 +58,7 @@ augmented with information obtained by reverse engineering. Registers not in the
 technical summary are marked with a * symbol.
 
 Address | Name | Description
-- | - | -
+--- | --- | ---
 2584 | IER | Interrupt enable register
 2586 | ISR | Interrupt status register
 2588 | TACS | Temporal audio channel select register
@@ -403,7 +403,7 @@ This register accepts control commands for the CIAP.
 The following words are written by the CD-i CIAP driver.
 
 Word | Name | Description
-- | - | -
+--- | --- | ---
 0008 | ASEL | Activate selection on next sector
 0040 | ??? | ?
 0094 | STARTA | ?
@@ -449,7 +449,7 @@ The EMPH, STEREO, FREQ18K9 and BITS8 bit correspond directly to bits of the
 submode coding byte for audio sectors as follows:
 
 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
-- | - | - | - | - | - | - | -
+--- | --- | --- | --- | --- | --- | --- | ---
 0 | EMPH | 0 | BITS8 | 0 | FREQ18K9 | 0 | STEREO
  
 #### AP_Left - Audio processor unit left register
@@ -481,7 +481,7 @@ This register accepts control commands for the audio processor.
 The following words are written by the CD-i CIAP driver.
 
 Word | Name | Description
-- | - | -
+--- | --- | ---
 0020 | INTDONE | Generate interrupt when audio playback is done
 00A0 | INTNOW | Generate an immediate interrupt
 0140 | PLAY0 | Start audio playback with ADPCM buffer 0
@@ -491,7 +491,7 @@ Word | Name | Description
 The CD-i CIAP driver writes the following words to this register:
 
 Word | Name | Description
-- | - | -
+--- | --- | ---
 0002 | ? | ?
 0003 | ? | ?
 
@@ -619,7 +619,7 @@ microcode and writes 0000 after. As configured by the CIAP device
 descriptor modules, microcode from OS-9 data modules is downloaded as follows:
 
 Module | Area
-- | -
+--- | ---
 *ciap15_mc0* | Program area 1
 *ciap15_mc1* | Program area 2
 *ciap15_mc2* | Program area 3
