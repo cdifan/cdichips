@@ -23,7 +23,8 @@ The following memory map has been derived from the service manuals and reverse
 engineering.
 
 All memory addresses are hexadecimal and relative to the base address of the
-IKAT. In CD-i players this is always 00310000 so that for example Port A is located at main CPU address 0020001.
+IKAT. In CD-i players this is always 00310000 so that for example the Port A
+write registers is located at main CPU address 00310001.
 
 The IKAT has an 8-bit connection to the lower part of the main 68000 CPU data
 bus and does not have an A0 input pin, so all of the memory addresses below are
