@@ -114,7 +114,7 @@ fed to a video encoder chip.
 **Additional information:** [mcd221ciap.md](mcd221ciap.md) in this repository \
 **CD-i boards:** Mono-III and up
 
-#### SERVO - Motorola MC68HC05  8-bit Microcontroller
+#### SERVO - Motorola MC68HC05 8-bit Microcontroller
 
 This microcontroller performs low-level CD drive control functions.
 It contains XXX bytes of read-only factory-programmed program ROM

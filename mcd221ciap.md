@@ -98,7 +98,7 @@ subchannel Q CRC bytes.
 
 The mainchannel data part of each sector starts with four bytes of minute,
 second, frame, andmode information. For mode 2 sectors this is directly followed
-by two sets of four file, channel, submode and coding information. The CIAP can
+by two four byte sets of file, channel, submode and coding information. The CIAP can
 use filtering on the file and channel bytes to select sectors for delivery to
 memory and can also optionally send the ADPCM contents of mode 2 audio sectors
 in specific channels directly to the CIAP audio processor for decoding.
@@ -619,8 +619,9 @@ to perform back-to-back word DMA transfers.
 The DLOAD register controls downloading of microcode into Program areas 1 to 3.
 
 The CD-i CIAP driver writes 0001 to this register before downloading the
-microcode and writes 0000 after. As configured by the CIAP device
-descriptor modules, microcode from OS-9 data modules is downloaded as follows:
+microcode and writes 0000 after. As configured by the CIAP device descriptor
+modules, microcode from OS-9 data modules is downloaded into the CIAP as
+follows:
 
 Module | Area
 --- | ---
