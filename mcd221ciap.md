@@ -406,11 +406,15 @@ Word | Name | Description
 --- | --- | ---
 0008 | ASEL | Activate selection on next sector
 0040 | ??? | ?
-0094 | STARTA | ?
-00C4 | STARTD | ?
+0094 | STARTA | Start audio playback (audio track)
+00C4 | STARTD | Start data read (data track and lead-in)
 0100 | RESET | Reset CIAP
-3000 | PREPA | ?
-7000 | PREPD | ?
+3000 | PREPA | Prepare for audio playback
+7000 | PREPD | Prepare for data read
+
+The CD-i CIAP driver always writes PREPx immediately followed by STARTx.
+
+[CD-i Emulator] ignores the PREPx commands and does not distinguish between the STARTx commands.
 
 #### A_SHDW - ADPCM shadow register
 
