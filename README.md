@@ -1,6 +1,6 @@
 # CD-i chip information
 
-[CD-i players] contain a number of chips for which a complete datasheets or
+[CD-i players] contain a number of chips for which a complete datasheet or
 programming information is not publicly available. This presents a problem for
 authors of CD-i emulators which need to emulate these chips.
 
