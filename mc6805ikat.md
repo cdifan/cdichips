@@ -64,6 +64,10 @@ command than first byte 80 on port D.
 The IKAT will assert its level-based interrupt output whenever the interrupt
 bits for any port are set in bith the ISR and ICR registers.
 
+The IKAT will delay assertion of it's DTACK (Data Transfer ACKnowledge) output
+to briefly halt the main 68000 CPU when needed; the exact timing dependencies
+are not currently known.
+
 Some IKAT ports are read by interrupt handlers from multiple CD-i drivers; if this is the
 case response messages may start with one or more A5 bytes which will select the correct
 interrupt handlers.

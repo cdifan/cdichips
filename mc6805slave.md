@@ -54,6 +54,10 @@ command than first byte 80 on port D.
 The SLAVE will assert its level-based interrupt output whenever response message
 bytes are available on any port.
 
+The SLAVE will delay assertion of it's DTACK (Data Transfer ACKnowledge) output
+to briefly halt the main 68000 CPU when needed; the exact timing dependencies
+are not currently known.
+
 ## Commands
 
 ### Port A
