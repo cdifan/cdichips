@@ -33,7 +33,7 @@ buffer 1 is located at main CPU address 00300900.
 The CIAP is a 16-bit wide device and does not have an A0 input pin, therefore all
 of the memory addresses below are even and all accesses must use word bus cycles.
 The 68000 CPU supports reading bytes, words and long words using such cycles but
-all writing must be done with aligned words or long word operations.
+all writing must be done with aligned word or long word operations.
 
 Address | Description
 --- | ---
@@ -84,20 +84,20 @@ Address | Name | Description
 The CD-i CIAP driver uses word read and write operations for all registers. However,
 the CD-i low-level tests use byte reads for the ID register.
 
-[CD-i Emulator] does not implement word access for any register except the ID register.
+[CD-i Emulator] does not implement byte access for any register except the ID register.
 
 ## Concept of operation
 
 The CIAP sector decoder accepts incoming serial data from a CD drive and uses
 the embedded framing information to split this into frames of 1/75th second.
-Each frame is then decoded into 2340 bytes of mainchannel data and 150 bytes of
+Each frame is then decoded into 2340 bytes of mainchannel data and XXX bytes of
 subchannel data, 10 bytes for subchannel Q and 12 bytes each for subchannels R to W.
 The mainchannel sector sync bytes and subchannel frame sync bits
 are not made available to the host processor and neither are the
 subchannel Q CRC bytes.
 
 The mainchannel data part of each sector starts with four bytes of minute,
-second, frame, andmode information. For mode 2 sectors this is directly followed
+second, frame, and mode information. For mode 2 sectors this is directly followed
 by two four byte sets of file, channel, submode and coding information. The CIAP can
 use filtering on the file and channel bytes to select sectors for delivery to
 memory and can also optionally send the ADPCM contents of mode 2 audio sectors
