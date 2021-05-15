@@ -108,7 +108,6 @@ bits should be preserved when written but otherwise not used.
 
 TBA
 
-[CD-i Emulator] never asserts the DONE output signal.
 
 [JNMS]: http://www.cdiemu.org/players/
 [Maxi-MMC]: http://www.cdiemu.org/players/
