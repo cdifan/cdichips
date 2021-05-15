@@ -38,6 +38,8 @@ Address | Register | Description
 5 | PC | Port C
 7 | PD | Port D
 
+Note: Ports A-D as documented here are not the MC68HC05 ports of the same name.
+
 ## Concept of operation
 
 Each port accepts a number of command messages and can return a number of

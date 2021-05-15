@@ -48,6 +48,8 @@ Address | Register | Description
 1B | ICR | Interrupt control register
 1D | YCR | Y control register [sic]
 
+Note: Ports A-D as documented here are not the MC68HC05 ports of the same name.
+
 ## Concept of operation
 
 Each port accepts a number of command messages and can return a number of
