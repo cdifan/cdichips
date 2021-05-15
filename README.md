@@ -98,7 +98,7 @@ fed to a video encoder chip.
 #### CDIC - Philips IMS66490 CD-Interface Controller
 
 **Data sheet:** Not available \
-**Additional information**: TBA \
+**Additional information**: [ims66490cdic.md](ims66490cdic.md) in this repository \
 **CD-i boards:** JNMS, Maxi-MMC, Mini-MMC, Mono-I
 
 #### DSP - Motorola DSP56001 Digital Signal Processor
