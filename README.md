@@ -147,4 +147,29 @@ TBA
 
 ## MPEG chips
 
-TBA
+#### FMA - Motorola GSC38GG307CF50 Full Motion Audio
+
+**Data sheet:** Not available \
+**DVC boards:** GMPEG, VMPEG
+
+#### DSP - Motorola DSP56001FC33 Digital Signal Processor
+
+**Data sheet:** http://www.icdia.co.uk/docs/dsp56001.zip \
+**DVC boards:** GMPEG, VMPEG
+
+#### FMV - Motorola GSC02UH307MZ57 Full Motion Video
+
+**Data sheet:** Not available \
+**DVC boards:** GMPEG
+
+#### FMV - Motorola MCD251 MPEG Full Motion Video Decoder
+
+**Data sheet:** Not available \
+**Technical summary:** http://www.icdia.co.uk/docs/mcd251ts.pdf \
+**DVC boards:** VMPEG
+
+#### IMPEG - Motorola MCD270 MPEG Integrated Video and Audio Decoder
+
+**Data sheet:** Not available \
+**Technical summary:** http://www.icdia.co.uk/docs/mcd270ts.pdf \
+**DVC boards:** IMPEG
