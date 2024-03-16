@@ -1,17 +1,17 @@
-# MC68HC05 8-bit Microcontroller (SLAVE)
+# MC68HC05C8 8-bit Microcontroller (SLAVE)
 
 In CD-i players the SLAVE microcontroller performs high-level CD drive control,
 CD-i pointing device, front LED display and general system control functions. It
-contains XXX bytes of read-only factory-programmed program ROM and XXX bytes of
+contains 7744 bytes of read-only factory-programmed user ROM and 176 bytes of
 RAM.
 
-The data sheet of the base MC68HC05 chip is publicly available but interface
+The data sheet of the base MC68HC05C8 chip is publicly available but interface
 documentation for the SLAVE program is not. This document is an attempt to
 describe the SLAVE functions with enough level of detail so that they can be
 emulated in software.
 
 The information in this document has mostly been determined by reverse
-engineering CD-i drivers for the CD-i Maxi-MMC, Mini-MMC, Mono-I and Mono-II
+engineering CD-i drivers for the CD-i [Maxi-MMC], [Mini-MMC], [Mono-I] and [Mono-II]
 mainboard generations that use the SLAVE microcontroller.
 
 Because of this, the exact behaviour of many functions is unclear. In some
@@ -24,7 +24,7 @@ engineering.
 
 All memory addresses are hexadecimal and relative to the base address of the
 SLAVE. In CD-i players this is either 00200000 (Mini-MMC, Maxi-MMC) or 00310000
-(Mono-I, Mono-II) so that for example on a Mini-MMC board Port A is located at
+(Mono-I, Mono-II) so that for example on a Mini-MMC board Channel A is located at
 main CPU address 00200001.
 
 The SLAVE has an 8-bit connection to the lower part of the main 68000 CPU data
@@ -33,26 +33,28 @@ odd and the registers must be accessed with byte read or write cycles.
 
 Address | Register | Description
 --- | --- | ---
-1 | PA | Port A
-3 | PB | Port B
-5 | PC | Port C
-7 | PD | Port D
+1 | AR | Channel A Data Register
+3 | BR | Channel B Data Register
+5 | CR | Channel C Data Register
+7 | DR | Channel D Data Register
 
-Note: Ports A-D as documented here are not the MC68HC05 ports of the same name.
+The register names are loosely inspired by the MC68HC05i8 register names.
+
+Note: Channels A-D have no relation to MC68HC05 ports PA-PD.
 
 ## Concept of operation
 
-Each port accepts a number of command messages and can return a number of
+Each channel accepts a number of command messages and can return a number of
 response messages. Some commands will always return response messages, others
 will not; response messages can also be returned aynchronously driven by
 external input, e.g. from pointing devices.
 
 The length of each message is determined by its first byte. Both commands and
-responses are port-specific, e.g. first byte 80 on port B specifies a different
-command than first byte 80 on port D.
+responses are channel-specific, e.g. first byte 80 on channel B specifies a different
+command than first byte 80 on channel D.
 
 The SLAVE will assert its level-based interrupt output whenever response message
-bytes are available on any port.
+bytes are available on any channel.
 
 The SLAVE will delay assertion of it's DTACK (Data Transfer ACKnowledge) output
 to briefly halt the main 68000 CPU when needed; the exact timing dependencies
@@ -60,28 +62,28 @@ are not currently known.
 
 ## Commands
 
-### Port A
+### Channel A
 
 #### Enable pointer input
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
 A | 83 | 1000 0011 | `Enable pointer input`
 
-Enables `Pointer state` response messages on port A.
+Enables `Pointer state` response messages on channel A.
 
-**Response:** `Pointer state` on port A
+**Response:** `Pointer state` on channel A
 
 #### Disable pointer input
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
 A | 84 | 1000 0100 | `Disable pointer input`
 
-Disables `Pointer state` response messages on port A.
+Disables `Pointer state` response messages on channel A.
 
 **Response:** None
 
 #### Set pointer position
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
 A | Cx xx xx ... Fx xx xx | 11*aa aaaa* 0*bbb cccc* 0*ddd dddd* | `Set pointer position`
 
@@ -91,16 +93,16 @@ The x and y values correspond to high-res screen positions.
 
 **Response:** None
 
-TBA: more port A commands
+TBA: more channel A commands
 
-### Port B
+### Channel B
 
-TBA: port B commands
+TBA: channel B commands
 
-### Port C
+### Channel C
 
 #### Reset main cpu
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
 A | 8A | 1000 1010 | `Reset main cpu`
 
@@ -108,18 +110,18 @@ Resets the main 68000 CPU by asserting its RESET input.
 
 **Response:** None, main CPU is reset
 
-TBA: more port C commands
+TBA: more channel C commands
 
-### Port D
+### Channel D
 
-TBA: port C commands
+TBA: channel C commands
 
 ## Responses
 
-### Port A
+### Channel A
 
 #### Pointer state
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
 A | 0x xx xx xx ... 3x xx xx xx | 00*ab cddd* 0*eee eeee* 0000 0*fff* 0*ggg gggg* | `Pointer state`
 
@@ -132,18 +134,23 @@ Reports the current pointer state: \
 
 The x and y values correspond to high-res screen positions.
 
-TBA: more port A responses
+TBA: more channel A responses
  
-### Port B
+### Channel B
 
-TBA: port B responses
+TBA: channel B responses
 
-### Port C
+### Channel C
 
-TBA: port C responses
+TBA: channel C responses
 
-### Port D
+### Channel D
 
-TBA: port D responses
+TBA: channel D responses
 
-[CD-i Emulator]: http://www.cdiemu.org/cdiemu/
+[CD-i Emulator]: https://www.cdiemu.org/cdiemu/
+[Maxi-MMC]: https://www.cdiemu.org/players/
+[Mini-MMC]: https://www.cdiemu.org/players/
+[Mono-I]: https://www.cdiemu.org/players/
+[Mono-II]: https://www.cdiemu.org/players/
+
