@@ -62,6 +62,17 @@ are then fed to a separate back-end video decoder/synthesizer chip.
 **Data sheet:** http://www.icdia.co.uk/docs/scc66470.pdf \
 **CD-i boards:** JNMS, Maxi-MMC, Mini-MMC, Sony, Kyocera
 
+#### Dual VSC - Sony CXD8297AQ Dual Video and System Controller
+
+CD-i players use this chip as front-end video controllers in
+a master/slave configuration. The chip controls 2x512KB of video memory and
+processes image control and data information for each single plane, performing
+run-length and mosaic decoding. The outputs of both planes
+are then fed to a separate back-end video decoder/synthesizer chip.
+
+**Data sheet:** http://www.icdia.co.uk/docs/scc66470.pdf \
+**CD-i boards:** JNMS, Maxi-MMC, Mini-MMC, Sony, Kyocera
+
 #### VSR - Matsushita MN66460B Video Synthesizer
 
 CD-i players use this back-end video synthesizer chip to decode CLUT, DYUV and
