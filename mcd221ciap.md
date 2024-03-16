@@ -10,7 +10,7 @@ registers with enough level of detail so that they can be emulated in software.
 
 The information in this document beyond what is described in the technical
 summary has been determined by reverse engineering the CD-i CIAP driver
-*ciapdriv* used by all CD-i players with a [Mono-III] and later mainboard
+*ciapdriv* used by all CD-i players with a [Mono-III] and [Mono-IV] mainboard
 generation. This includes an additional register and all of functions of the
 register bits.
 
@@ -631,5 +631,6 @@ Module | Area
 
 
 [MCD221ts]: http://www.icdia.co.uk/docs/mcd221tsrev0.zip
-[Mono-III]: http://www.cdiemu.org/players/
-[CD-i Emulator]: http://www.cdiemu.org/cdiemu/
+[Mono-III]: https://www.cdiemu.org/players/
+[Mono-IV]: https://www.cdiemu.org/players/
+[CD-i Emulator]: https://www.cdiemu.org/cdiemu/

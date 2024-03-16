@@ -7,9 +7,12 @@ XXX bytes of RAM.
 The data sheet of the base MC68HC05 chip is publicly available but interface
 documentation for the SERVO program is not.
 
-The SERVO chip is used in the CD-i Maxi-MMC, Mini-MMC and Mono-I
+The SERVO chip is used in the CD-i [Maxi-MMC], [Mini-MMC] and [Mono-I]
 mainboard generations.
 
 The SERVO is not directly connected to the 68000 main CPU. It connects to
-the SLAVE via the SPI bus.
+the DSP via the X-bus and to the SLAVE via the SPI bus.
 
+[Maxi-MMC]: https://www.cdiemu.org/players/
+[Mini-MMC]: https://www.cdiemu.org/players/
+[Mono-I]: https://www.cdiemu.org/players/
