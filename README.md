@@ -156,16 +156,21 @@ and XXX bytes of RAM.
 
 This microcontroller performs high-level CD drive control, CD-i pointing
 device and general system control functions.
-It contains XXX bytes of read-only factory-programmed program ROM
-and XXX bytes of RAM.
+It contains 1744 bytes of read-only factory-programmed program ROM
+and 176 bytes of RAM.
 
-**Data sheet:** TBA \
+**Data sheet:** http://www.icdia.co.uk/docs/mc68hc05c8rg.pdf \
 **Additional information:** [mc6805slave.md](mc6805slave.md) in this repository \
 **CD-i boards:** Maxi-MMC, Mini-MMC, Mono-I, Mono-II
 
 #### IKAT - Motorola MC68HC05i8 8-bit microcontroller
 
-**Data sheet:** TBA \
+This microcontroller performs high-level CD drive control, CD-i pointing
+device and general system control functions.
+It contains 7936 bytes of read-only factory-programmed program ROM
+and 224 bytes of RAM.
+
+**Data sheet:** http://www.icdia.co.uk/docs/mc68hc05i8ai.pdf \
 **Additional information:** [mc6805ikat.md](mc6805ikat.md) in this repository \
 **CD-i boards:** Mono-III, Mono-IV
 
