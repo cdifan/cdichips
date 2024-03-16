@@ -1,17 +1,17 @@
-# MC68HC05 8-bit Microcontroller (IKAT)
+# MC68HC05i8 8-bit Microcontroller (IKAT)
 
 In CD-i players the IKAT microcontroller performs CD drive control,
 CD-i pointing device, front LED display and general system control functions. It
-contains XXX bytes of read-only factory-programmed program ROM and XXX bytes of
+contains 7936 bytes of read-only factory-programmed user ROM and 224 bytes of
 RAM.
 
-The data sheet of the base MC68HC05 chip is publicly available but interface
+The data sheet of the base MC68HC05i8 chip is publicly available but interface
 documentation for the IKAT program is not. This document is an attempt to
 describe the IKAT functions with enough level of detail so that they can be
 emulated in software.
 
 The information in this document has mostly been determined by reverse
-engineering CD-i drivers for the CD-i Mono-II and up mainboard generations that
+engineering CD-i drivers for the CD-i [Mono-III] and [Mono-IV] mainboard generations that
 use the IKAT microcontroller.
 
 Because of this, the exact behaviour of many functions is unclear. In some
@@ -23,7 +23,7 @@ The following memory map has been derived from the service manuals and reverse
 engineering.
 
 All memory addresses are hexadecimal and relative to the base address of the
-IKAT. In CD-i players this is always 00310000 so that for example the Port A
+IKAT. In CD-i players this is always 00310000 so that for example the Channel A
 write registers is located at main CPU address 00310001.
 
 The IKAT has an 8-bit connection to the lower part of the main 68000 CPU data
@@ -32,57 +32,55 @@ odd and the registers must be accessed with byte read or write cycles.
 
 Address | Register | Description
 --- | --- | ---
-01 | PAWR | Port A write register
-03 | PBWR | Port B write register
-05 | PCWR | Port C write register
-07 | PDWR | Port D write register
-09 | PARD | Port A read register
-0B | PBRD | Port B read register
-0D | PCRD | Port C read register
-0F | PDRD | Port D read register
-11 | PAWR | Port A status register
-13 | PBWR | Port B status register
-15 | PCWR | Port C status register
-17 | PDWR | Port D status register
-19 | ISR | Interrupt status register
-1B | ICR | Interrupt control register
-1D | YCR | Y control register [sic]
+01 | ADRW | Channel A Data Write Register
+03 | BDRW | Channel B Data Write Register
+05 | CDRW | Channel C Data Write Register
+07 | DDRW | Channel D Data Write Register
+09 | ADRR | Channel A Data Read Register
+0B | BDRR | Channel B Data Read Register
+0D | CDRR | Channel C Data Read Register
+0F | DDRR | Channel D Data Read Register
+11 | ASR | Channel A Status Register
+13 | BSR | Channel B Status Register
+15 | CSR | Channel C Status Register
+17 | DSR | Channel D Status Register
+19 | ISR | Interrupt Status Register
+1B | IMR | Interrupt Mask Register
+1D | MR | Mode Register
 
-Note: Ports A-D as documented here are not the MC68HC05 ports of the same name.
+These register names are taken from the MC68HC05i8 Advance Information document.
+
+Note: Channels A-D have no relation to MC68HC05i8 ports PA-PD.
 
 ## Concept of operation
 
-Each port accepts a number of command messages and can return a number of
+Each channel accepts a number of command messages and can return a number of
 response messages. Some commands will always return response messages, others
 will not; response messages can also be returned aynchronously driven by
 external input, e.g. from pointing devices.
 
 The length of each message is determined by its first byte. Both commands and
-responses are port-specific, e.g. first byte 80 on port B specifies a different
-command than first byte 80 on port D.
+responses are channel-specific, e.g. first byte 80 on channel B specifies a different
+command than first byte 80 on channel D.
 
 The IKAT will assert its level-based interrupt output whenever the interrupt
-bits for any port are set in bith the ISR and ICR registers.
+bits for any channel are set in both the ISR and IMR registers.
 
-The IKAT will delay assertion of it's DTACK (Data Transfer ACKnowledge) output
-to briefly halt the main 68000 CPU when needed; the exact timing dependencies
-are not currently known.
-
-Some IKAT ports are read by interrupt handlers from multiple CD-i drivers; if this is the
+Some IKAT channels are read by interrupt handlers from multiple CD-i drivers; if this is the
 case response messages may start with one or more A5 bytes which will select the correct
 interrupt handlers.
 
 ## Register description
 
-#### P*x*WR - Port *x* write register (*x* = A/B/C/D)
+#### *x*DRW - Channel *x* Data Write Register (*x* = A/B/C/D)
 
-This register is used for writing Port *x* command bytes.
+This register is used for writing Channel *x* command bytes.
 
-#### P*x*RD - Port *x* read register (*x* = A/B/C/D)
+#### *x*DRR - Channel *x* Data Read Register (*x* = A/B/C/D)
 
-This register is used for reading Port *x* response bytes.
+This register is used for reading Channel *x* response bytes.
 
-#### P*x*ST - Port *x* status register (*x* = A/B/C/D)
+#### *x*SR - Channel *x* Status Register (*x* = A/B/C/D)
 
 <table>
 <tr>
@@ -90,29 +88,41 @@ This register is used for reading Port *x* response bytes.
     <th>3</th><th>2</th><th>1</th><th>0</th>
 </tr>
 <tr>
-    <td title="PxST[7]">?</td>
-    <td title="PxST[6]">?</td>
-    <td title="PxST[5]">?</td>
-    <td title="PxST[4]">RDIDLE</td>
-    <td title="PxST[3]">?</td>
-    <td title="PxST[2]">?</td>
-    <td title="PxST[1]">?</td>
-    <td title="PxST[0]">WRIDLE</td>
+    <td title="xSR[7]">ROR</td>
+    <td title="xSR[6]">RRDY</td>
+    <td title="xSR[5]">RFULL</td>
+    <td title="xSR[4]">REMTY</td>
+    <td title="xSR[3]">TOR</td>
+    <td title="xSR[2]">TRDY</td>
+    <td title="xSR[1]">TFULL</td>
+    <td title="xSR[0]">TEMTY</td>
 </tr>
 </table>
 
-This register is used for reading Port *x* status.
+This register is used for reading Channel *x* status.
 
-The WRIDLE bit is set if command bytes can be written to the
-Port *x* write register P*x*WR.
+ROR - Receiver Overrun
 
-The RDIDLE bit is set if there are no response bytes to be read from the
-Port *x* read register P*x*RD.
+RRDY - Receiver Ready
 
-[CD-i Emulator] always returns the WRIDLE bit set as command processing
+RFULL - Receiver Full
+
+REMTY - Receiver Empty
+
+ROR - Receiver Overrun
+
+RRDY - Receiver Ready
+
+RFULL - Receiver Full
+
+REMTY - Receiver Empty
+
+See the datasheet for the exact functions of these bits.
+
+[CD-i Emulator] only emulates the REMPTY bit; the other bits read as zero values except TEMTY which always reads as set since command processing
 does not take emulated time; this might be different on real hardware.
 
-#### ISR - Interrupt status register
+#### ISR - Interrupt Status Register
 
 <table>
 <tr>
@@ -120,25 +130,33 @@ does not take emulated time; this might be different on real hardware.
     <th>3</th><th>2</th><th>1</th><th>0</th>
 </tr>
 <tr>
-    <td title="ISR[7]">INTD</td>
-    <td title="ISR[6]">?</td>
-    <td title="ISR[5]">INTC</td>
-    <td title="ISR[4]">?</td>
-    <td title="ISR[3]">INTB</td>
-    <td title="ISR[2]">?</td>
-    <td title="ISR[1]">INTA</td>
-    <td title="ISR[0]">?</td>
+    <td title="ISR[7]">RD</td>
+    <td title="ISR[6]">TD</td>
+    <td title="ISR[5]">RC</td>
+    <td title="ISR[4]">TC</td>
+    <td title="ISR[3]">RB</td>
+    <td title="ISR[2]">TB</td>
+    <td title="ISR[1]">RA</td>
+    <td title="ISR[0]">TA</td>
 </tr>
 </table>
+
+R*x* - Channel *x* Receiver interrupt
+
+T*x* - Channel *x* Transmitter interrupt
+
+Note: the channel bits are reversed from the datasheet as determined by reverse engineering.
 
 The bits of this register indicate conditions that can generate interrupts
-to the main 68000 CPU. If the corresponding bit in ICR is set, an interrupt
+to the main 68000 CPU. If the corresponding bit in IMR is set, an interrupt
 will be generated whenever a bit of this register becomes set.
 
-Each of the INT*X* bits becomes set whenever response message
-bytes are available on the corresponding Port *X* read register.
+Each of the R*x* bits becomes set whenever response message
+bytes are available on the corresponding Channel *x* read register.
 
-#### ICR - Interrupt control register
+[CD-i Emulator] never sets the T*x* bits.
+
+#### IMR - Interrupt Mask Register
 
 <table>
 <tr>
@@ -146,23 +164,29 @@ bytes are available on the corresponding Port *X* read register.
     <th>3</th><th>2</th><th>1</th><th>0</th>
 </tr>
 <tr>
-    <td title="ICR[7]">INTD</td>
-    <td title="ICR[6]">?</td>
-    <td title="ICR[5]">INTC</td>
-    <td title="ICR[4]">?</td>
-    <td title="ICR[3]">INTB</td>
-    <td title="ICR[2]">?</td>
-    <td title="ICR[1]">INTA</td>
-    <td title="ICR[0]">?</td>
+    <td title="IMR[7]">RMD</td>
+    <td title="IMR[6]">TMD</td>
+    <td title="IMR[5]">RMC</td>
+    <td title="IMR[4]">TMC</td>
+    <td title="IMR[3]">RMB</td>
+    <td title="IMR[2]">TMB</td>
+    <td title="IMR[1]">TMA</td>
+    <td title="IMR[0]">TMA</td>
 </tr>
 </table>
+
+RM*x* - Channel *x* Receiver interrupt Mask
+
+TM*x* - Channel *x* Transmitter interrupt Mask
+
+Note: the channel bits are reversed from the datasheet as determined by reverse engineering.
 
 The bits of this register specify the conditions for generating interrupts to
 the main 68000 CPU. If a bit in this register is set, an interrupt will be
 generated whenever the corresponding bit in ISR becomes set. See the description
 of ISR for a description of the conditions associated with each bit.
 
-### YCR - Y control register [sic]
+### MR - Mode Register [sic]
 
 <table>
 <tr>
@@ -170,117 +194,124 @@ of ISR for a description of the conditions associated with each bit.
     <th>3</th><th>2</th><th>1</th><th>0</th>
 </tr>
 <tr>
-    <td title="YCR[7]">?</td>
-    <td title="YCR[6]">?</td>
-    <td title="YCR[5]">?</td>
-    <td title="YCR[4]">?</td>
-    <td title="YCR[3]">?</td>
-    <td title="YCR[2]">?</td>
-    <td title="YCR[1]">?</td>
-    <td title="YCR[0]">?</td>
+    <td title="MR[7]">IMOD</td>
+    <td title="MR[6]">FCLR</td>
+    <td title="MR[5]">0</td>
+    <td title="MR[4]">0</td>
+    <td title="MR[3]">AEN</td>
+    <td title="MR[2]">BEN</td>
+    <td title="MR[1]">CEN</td>
+    <td title="MR[0]">DEN</td>
 </tr>
 </table>
 
-The function of this register is not known.
+IMOD - Interrupt Mode
 
-NB. It is named the Y control register because ICTL was initially named
-the X control register before its purpose was known.
+FCLR - FIFO Data Clear
+
+*x*EN - Channel *x* Enable
+
+See the datasheet for the exact functions of these bits.
+
+The CD-i system bootstrap always writes 8F to this register.
+
+[CD-i Emulator] does not emulate any of the above bits.
 
 ## Commands
 
-### Port A
+### Channel A
 
-TBA: port A commands
+TBA: channel A commands
 
-### Port B
+### Channel B
 
-TBA: port B commands
+TBA: channel B commands
 
-### Port C
+### Channel C
 
 #### Reset main cpu
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PC | 88 | 1000 1000 | `Reset main cpu`
+C | 88 | 1000 1000 | `Reset main cpu`
 
 Resets the main 68000 CPU by asserting its RESET input.
 
 **Response:** None, main CPU is reset
 
 #### Get boot mode
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PC | F4 | 1111 0100 | `Get boot mode`
+C | F4 | 1111 0100 | `Get boot mode`
 
-**Response:** `Boot mode` on Port C
+**Response:** `Boot mode` on Channel C
 
 #### Get video standard
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PC | F6 | 1111 0110 | `Get video standard`
+C | F6 | 1111 0110 | `Get video standard`
 
-**Response:** `Video standard` on Port C
+**Response:** `Video standard` on Channel C
 
-TBA: more port C commands
+TBA: more channel C commands
 
-### Port D
+### Channel D
 
 #### Get disc status
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PD | B0 | 1011 0000 | `Get disc status`
+D | B0 | 1011 0000 | `Get disc status`
 
-**Response:** `Disc status` on Port D
+**Response:** `Disc status` on Channel D
 
 #### Get disc base
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PD | B1 | 1011 0001 | `Get disc base`
+D | B1 | 1011 0001 | `Get disc base`
 
-**Response:** `Disc base` on Port D
+**Response:** `Disc base` on Channel D
 
 #### Get disc status
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PD | B2 | 1011 0010 | `Get disc select`
+D | B2 | 1011 0010 | `Get disc select`
 
-**Response:** `Disc select` on Port D
+**Response:** `Disc select` on Channel D
 
 #### Start TOC
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PD | C0 | 1100 0000 | `Start TOC`
+D | C0 | 1100 0000 | `Start TOC`
 
 Starts TOC read from the lead-in area of the disc.
 
 #### Start CDDA
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PD | E0 mm ss ff | 1110 0000 *mmmm mmmm* *ssss ssss* *ffff ffff* | `Start CDDA`
+D | E0 mm ss ff | 1110 0000 *mmmm mmmm* *ssss ssss* *ffff ffff* | `Start CDDA`
 
 Starts CD-DA playback at absolute CD address *mm:ss:ff*.
 
 #### Start READ
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PD | E1 mm ss ff | 1110 0001 *mmmm mmmm* *ssss ssss* *ffff ffff* | `Start CDDA`
+D | E1 mm ss ff | 1110 0001 *mmmm mmmm* *ssss ssss* *ffff ffff* | `Start CDDA`
 
 Starts sector reading at absolute CD address *mm:ss:ff*.
 
-TBA: more port D commands
+TBA: more channel D commands
 
 ## Responses
 
-### Port A
+### Channel A
 
-TBA: port A responses
+TBA: channel A responses
 
-### Port B
+### Channel B
 
 #### Absolute pointer state
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PB | 4x xx xx xx ... 7x xx xx xx | 01*ab cccc* 000*d eeee* 00*ff ffff* 10*gg gggg* | `Absolute pointer state`
+B | 4x xx xx xx ... 7x xx xx xx | 01*ab cccc* 000*d eeee* 00*ff ffff* 10*gg gggg* | `Absolute pointer state`
 
 Reports the current pointer state in absolute coordinates: \
 *a* = set when button 2 pressed \
@@ -297,7 +328,7 @@ position delta values fit in an 8-bit signed value (i.e. are in the -128 ...
 +127 range).
 
 #### Relative pointer state
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
 B | 4x xx xx xx ... 7x xx xx xx | 01*ab ccdd* 00*ee eeee* 00*ff ffff* 0000 0000 | `Relative pointer state`
 
@@ -314,14 +345,15 @@ the `Absolute pointer state` response is only used when one of the x and y
 position delta values does not fit in an 8-bit signed value (i.e. is not in the -128 ...
 +127 range).
 
-TBA: more port B responses
+TBA: more channel B responses
 
-### Port C
+### Channel C
+
 
 #### Boot mode
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PC | A5 F4 0m | 1010 0101 1111 0100 0000 *mmmm* | `Boot mode`
+C | A5 F4 0m | 1010 0101 1111 0100 0000 *mmmm* | `Boot mode`
 
 Reports the boot mode as determined by service plug detection.
 
@@ -331,9 +363,9 @@ Reports the boot mode as determined by service plug detection.
 1 | Boot service shell
 
 #### Video standard
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PC | A5 F6 0s ?? | 1010 0101 1111 0110 0000 *ssss* ???? ???? | `Video standard`
+C | A5 F6 0s ?? | 1010 0101 1111 0110 0000 *ssss* ???? ???? | `Video standard`
 
 Reports the current video standard as taken from IKAT input pin PC7.
 
@@ -344,14 +376,14 @@ Reports the current video standard as taken from IKAT input pin PC7.
 
 [CD-i Emulator] always returns FF for the ?? byte.
 
-TBA: more port C responses
+TBA: more channel C responses
 
-### Port D
+### Channel D
 
 #### Disc status
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PD | B0 ss ss | 1011 0000 *ssss ssss* *ssss ssss* | `Disc status`
+D | B0 ss ss | 1011 0000 *ssss ssss* *ssss ssss* | `Disc status`
 
 Reports the current disc status like door {open,closing,closed,opening}, speed,
 focus and wether or not the disc is multi-session (orange book).
@@ -359,9 +391,9 @@ focus and wether or not the disc is multi-session (orange book).
 [CD-i Emulator] always returns hexadecimal 0210.
 
 #### Disc base
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PD | B1 mm ss ff | 1011 0001 *mmmm mmmm* *ssss ssss* *ffff ffff* | `Disc base`
+D | B1 mm ss ff | 1011 0001 *mmmm mmmm* *ssss ssss* *ffff ffff* | `Disc base`
 
 Reports the current absolute disc base address *mm:ss:ff* which is always
 00:02:00 except for multisession discs.
@@ -369,14 +401,16 @@ Reports the current absolute disc base address *mm:ss:ff* which is always
 [CD-i Emulator] always returns 00:02:00.
 
 #### Disc select
-Port | Hex | Binary | Name
+Channel | Hex | Binary | Name
 --- | --- | --- | ---
-PD | B2 ss ss ss | 1011 0010 *ssss ssss* *ssss ssss* *ssss ssss* | `Disc status`
+D | B2 ss ss ss | 1011 0010 *ssss ssss* *ssss ssss* *ssss ssss* | `Disc status`
 
 Reports the current disc select value.
 
 [CD-i Emulator] always returns hexadecimal 200010.
 
-TBA: more port D responses
+TBA: more channel D responses
 
-[CD-i Emulator]: http://www.cdiemu.org/cdiemu/
+[CD-i Emulator]: https://www.cdiemu.org/cdiemu/
+[Mono-III]: https://www.cdiemu.org/players/
+[Mono-IV]: https://www.cdiemu.org/players/
