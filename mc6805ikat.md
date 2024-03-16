@@ -238,6 +238,13 @@ Resets the main 68000 CPU by asserting its RESET input.
 
 **Response:** None, main CPU is reset
 
+#### Identify pointing devices
+Channel | Hex | Binary | Name
+--- | --- | --- | ---
+C | F3 | 1111 0011 | `Identify pointing devices`
+
+**Response:** `Pointing device ids` on Channel C
+
 #### Get boot mode
 Channel | Hex | Binary | Name
 --- | --- | --- | ---
@@ -349,6 +356,22 @@ TBA: more channel B responses
 
 ### Channel C
 
+#### Pointing device ids
+Channel | Hex | Binary | Name
+--- | --- | --- | ---
+C | A5 F3 id1 id2 | 1010 0101 1111 0011 *iiii iiii* *jjjj jjjj* | `Pointing device ids`
+
+Reports ID bytes of the connected pointing devices.
+
+*id* | Pointing device
+--- | ---
+'M' | Relative pointing device (mouse)
+'T' | Absolute pointing device (tablet)
+'K' | Keyboard
+TBA | x
+
+See the CD-i pointing device specification for more information about the pointing
+device ID recognition.
 
 #### Boot mode
 Channel | Hex | Binary | Name
