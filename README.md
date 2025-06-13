@@ -120,7 +120,9 @@ mixing, external audio and decoding ADPCM from CD and from memory.
 **Additional information**: [ims66490cdic.md](ims66490cdic.md) in this repository \
 **CD-i boards:** JNMS, Maxi-MMC, Mini-MMC, Mono-I
 
-#### DSP - Motorola DSP56001 Digital Signal Processor
+The CDIC chip is always coupled to a Philips PCB5010 DSP chip.
+
+#### DRVDSP - Motorola DSP56001 Digital Signal Processor
 
 This digital signal processor implements a CD drive interface suitable for
 decoding CD-XA and CD-i disc sectors and directly supports the corresponding
@@ -128,8 +130,12 @@ audio functions including mixing, external audio and decoding ADPCM from CD and
 from memory.
 
 **Data sheet:** http://www.icdia.co.uk/docs/dsp56001.zip \
-**Additional information**: TBA \
+**Additional information**: [dsp56001drvdsp.md](dsp56001drvdsp.md) in this repository \
 **CD-i boards:** Mono-II
+
+Microcode is downloaded into the DSP56001 from the `drvdsp` module in ROM.
+
+The DRVDSP chip is always coupled to a Philips LEMM CD interface chip.
 
 #### CIAP - Motorola MCD221 CD-Interface and Audio Processor
 
@@ -185,7 +191,7 @@ TBA
 **Data sheet:** Not available \
 **DVC boards:** GMPEG, VMPEG
 
-#### DSP - Motorola DSP56001FC33 Digital Signal Processor
+#### DSPFMA - Motorola DSP56001FC33 Digital Signal Processor
 
 **Data sheet:** http://www.icdia.co.uk/docs/dsp56001.zip \
 **DVC boards:** GMPEG, VMPEG

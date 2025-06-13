@@ -72,7 +72,7 @@ TIME and CHAN for which it always uses long read and write operations.
 The CDIC sector decoder accepts incoming serial data from a CD drive and uses
 the embedded framing information to split this into frames of 1/75th second.
 
-Each frame is then decoded into 2340 bytes of mainchannel data and XXX bytes of
+Each frame is then decoded into 2340 bytes of mainchannel data and 84 bytes of
 subchannel data, 12 bytes each for subchannels Q to W. The mainchannel sector
 sync bytes and subchannel frame sync bits are not made available to the host
 processor.
