@@ -148,6 +148,8 @@ mixing, external audio and decoding ADPCM from CD and from memory.
 **Additional information:** [mcd221ciap.md](mcd221ciap.md) in this repository \
 **CD-i boards:** Mono-III, Mono-IV, I2m
 
+Microcode is downloaded into the CIAP from the `ciap15_mc0`, `ciap15_mc1`, `ciap15_mc2` modules in ROM.
+
 #### SERVO - Motorola MC68HC05 8-bit Microcontroller
 
 This microcontroller performs low-level CD drive control functions.
@@ -195,6 +197,8 @@ TBA
 
 **Data sheet:** http://www.icdia.co.uk/docs/dsp56001.zip \
 **DVC boards:** GMPEG, VMPEG
+
+Microcode is downloaded from `dspcode` module in ROM.
 
 #### FMV - Motorola GSC02UH307MZ57 Full Motion Video
 

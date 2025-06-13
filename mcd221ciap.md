@@ -107,8 +107,8 @@ The CIAP does not implement control functions for CD drives. For CD-i these
 functions are implemented by a separate 68HC05 microcontroller called IKAT.
 
 The CIAP is a microcoded device; the CD-i CIAP driver downloads the microcode
-from the main CPU ROM into CIAP Program areas 1 to 3 on device initialization
-(INIT entry point).
+from the OS-9 data modules *ciap15_mc0*, *ciap15_mc1* and *ciap15_mc2* into
+CIAP Program areas 1 to 3 on device initialization (INIT entry point).
 
 ## Register description
 

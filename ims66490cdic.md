@@ -16,6 +16,8 @@ Because of this, the exact behaviour of register bits is often unclear. In some
 of these cases the emulation used by [CD-i Emulator] is described.
 
 In CD-i players the CDIC is connected to the main 68000 CPU as host CPU.
+It is always coupled with a Philips PCB5010 DSP chip with on-chip microcode;
+the DSP chip is not connected to the main CPU bus.
 
 ## Memory map
 
@@ -40,8 +42,8 @@ Address | Description
 
 Note: According to the low-level test the CDIC memory ranges from 0000 to 3C7F
 which means that part of the register area is actually in CDIC memory. This
-means that some registers are actually in CDIC memory and are probably
-implemented by the CDIC microcode.
+means that some registers are actually in CDIC memory and are
+implemented by the PCB5010 microcode.
 
 ## Register map
 
