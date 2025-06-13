@@ -33,10 +33,10 @@ odd and the registers must be accessed with byte read or write cycles.
 
 Address | Register | Description
 --- | --- | ---
-1 | AR | Channel A Data Register
-3 | BR | Channel B Data Register
-5 | CR | Channel C Data Register
-7 | DR | Channel D Data Register
+1 | ADR | Channel A Data Register
+3 | BDR | Channel B Data Register
+5 | CDR | Channel C Data Register
+7 | DDR | Channel D Data Register
 
 The register names are loosely inspired by the MC68HC05i8 register names.
 
