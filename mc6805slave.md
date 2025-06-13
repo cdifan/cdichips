@@ -47,7 +47,7 @@ Note: Channels A-D have no relation to MC68HC05 ports PA-PD.
 Each channel accepts a number of command messages and can return a number of
 response messages. Some commands will always return response messages, others
 will not; response messages can also be returned aynchronously driven by
-external input, e.g. from pointing devices.
+external input, e.g. from pointing devices or control keys.
 
 The length of each message is determined by its first byte. Both commands and
 responses are channel-specific, e.g. first byte 80 on channel B specifies a different
@@ -108,6 +108,13 @@ A | 8A | 1000 1010 | `Reset main cpu`
 
 Resets the main 68000 CPU by asserting its RESET input.
 
+#### Enable keyboard events
+Channel | Hex | Binary | Name
+--- | --- | --- | ---
+C | 80 | 1000 0000 | `Enable keyboard events`
+
+Enables the asynchronous responses `Keyboard key event` and `Control key event` on channel C.
+
 **Response:** None, main CPU is reset
 
 TBA: more channel C commands
@@ -142,7 +149,42 @@ TBA: channel B responses
 
 ### Channel C
 
-TBA: channel C responses
+#### Keyboard key event
+Channel | Hex | Binary | Name
+--- | --- | --- | ---
+C | A0 8x xx ... A0 Fx xx | 1010 0000 *1cml skkk 0kkk kkkk* | `Keyboard key event`
+
+Reports keyboard key pressed/released event
+
+*c* = state of Control key, 1 when pressed
+*m* = state of SuperShift (Meta) key, 1 when pressed
+*l* = state of Capslock key, 1 when pressed
+*s* = state of Shift key, 1 when pressed
+*kkkkkkkkkk* = key code *key* (see below)
+
+*key* | Key code
+--- | ---
+0xx | Standard character set key code (ISO-8859-1)
+100 | No key pressed
+1xx | Character set 1 key code (Reserved)
+2xx | Character set 2 key code (Reserved)
+3xx | Character set 3 key code (Reserved)
+
+See the keyboard section of the pointing device protocol specification for more information.
+
+#### Control key event
+Channel | Hex | Binary | Name
+--- | --- | --- | ---
+C | A2 ctl | 1010 0010 *cccc cccc* | `Control key event`
+
+Reports control key pressed/releasedn event
+
+*ctl* | Control key code
+--- | ---
+00 | No control key pressed
+x | TBA
+
+TBA: more channel C responses
 
 ### Channel D
 
