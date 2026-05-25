@@ -1,7 +1,7 @@
 # MC68HC05C8 8-bit Microcontroller (SLAVE)
 
 In CD-i players the SLAVE microcontroller performs high-level CD drive control,
-CD-i pointing device, front LED display and general system control functions. It
+CD-i pointing device, front display and general system control functions. It
 contains 7744 bytes of read-only factory-programmed user ROM and 176 bytes of
 RAM.
 

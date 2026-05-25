@@ -1,7 +1,7 @@
 # MC68HC05i8 8-bit Microcontroller (IKAT)
 
 In CD-i players the IKAT microcontroller performs CD drive control,
-CD-i pointing device, front LED display and general system control functions. It
+CD-i pointing device, front display and general system control functions. It
 contains 7936 bytes of read-only factory-programmed user ROM and 224 bytes of
 RAM.
 
